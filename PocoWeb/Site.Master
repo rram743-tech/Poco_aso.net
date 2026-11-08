@@ -1,0 +1,132 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Site.Master.cs" Inherits="SiteMaster" %>
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Poco!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="~/Content/site.css" rel="stylesheet" runat="server" />
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server" />
+</head>
+<body>
+<form id="form1" runat="server">
+
+    <asp:Literal ID="litFlash" runat="server" />
+
+    <header class="site-header">
+        <div class="container hdr">
+            <a class="logo" href="<%= ResolveUrl("~/Default.aspx") %>"><img src="<%= ResolveUrl("~/Images/logo.png") %>" alt="Poco!" /></a>
+            <button type="button" class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+
+            <nav class="main-nav" id="mainNav">
+                <ul>
+                    <li class="has-sub <%= Cls("home") %>"><a href="<%= ResolveUrl("~/Default.aspx") %>">Home <em>&#8964;</em></a>
+                        <ul class="sub"><li><a href="<%= ResolveUrl("~/Default.aspx") %>">Home</a></li><li><a href="<%= ResolveUrl("~/Default.aspx") %>#menus">Menus of the day</a></li></ul></li>
+                    <li class="<%= Cls("menu") %>"><a href="<%= ResolveUrl("~/Menu.aspx") %>">Menu</a></li>
+                    <li class="<%= Cls("about") %>"><a href="<%= ResolveUrl("~/About.aspx") %>">About</a></li>
+                    <li class="has-sub <%= Cls("shop") %>"><a href="<%= ResolveUrl("~/Shop.aspx") %>">Shop <em>&#8964;</em></a>
+                        <ul class="sub"><li><a href="<%= ResolveUrl("~/Shop.aspx") %>">All products</a></li><li><a href="<%= ResolveUrl("~/Cart.aspx") %>">Cart</a></li><li><a href="<%= ResolveUrl("~/Wishlist.aspx") %>">Wishlist</a></li></ul></li>
+                    <li class="has-sub <%= Cls("blog") %>"><a href="<%= ResolveUrl("~/Blog.aspx") %>">Blog <em>&#8964;</em></a>
+                        <ul class="sub"><li><a href="<%= ResolveUrl("~/Blog.aspx") %>">Latest posts</a></li></ul></li>
+                    <li class="has-sub <%= Cls("page") %>"><a href="#" onclick="return false;">Page <em>&#8964;</em></a>
+                        <ul class="sub"><li><a href="<%= ResolveUrl("~/Account.aspx") %>">My account</a></li><li><a href="<%= ResolveUrl("~/Checkout.aspx") %>">Checkout</a></li><li><a href="<%= ResolveUrl("~/Login.aspx") %>">Login</a></li><li><a href="<%= ResolveUrl("~/Register.aspx") %>">Register</a></li></ul></li>
+                    <li class="<%= Cls("contact") %>"><a href="<%= ResolveUrl("~/Contact.aspx") %>">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="hdr-right">
+                <div class="call">
+                    <img src="<%= ResolveUrl("~/Images/scooter-icon.png") %>" alt="" />
+                    <span><small>Call and Order in</small><a href="tel:+17189044450">+1 718-904-4450</a></span>
+                </div>
+                <div class="icons">
+                    <button type="button" class="ic" id="searchToggle" aria-label="Search">
+                        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M15.5 14h-.8l-.3-.3A6.5 6.5 0 1 0 14 15.500l.3.3v.8l5 5 1.500-1.500-5-5zm-6 0a4.500 4.500 0 1 1 0-9 4.500 4.500 0 0 1 0 9z"/></svg></button>
+
+                    <div class="user-wrap">
+                        <a class="ic" href="<%= ResolveUrl(Auth.IsLoggedIn ? "~/Account.aspx" : "~/Login.aspx") %>" aria-label="Account">
+                            <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 12a4.500 4.500 0 1 0 0-9 4.500 4.500 0 0 0 0 9zm0 2.200c-3 0-9 1.500-9 4.500V21h18v-2.300c0-3-6-4.500-9-4.500z"/></svg></a>
+                        <% if (Auth.IsLoggedIn) { %>
+                        <div class="user-menu">
+                            <span>Hi, <%= Ui.H(Auth.DisplayName) %></span>
+                            <a href="<%= ResolveUrl("~/Account.aspx") %>">My orders</a>
+                            <% if (Auth.IsAdmin) { %><a href="<%= ResolveUrl("~/Admin/Default.aspx") %>">Admin panel</a><% } %>
+                            <a href="<%= ResolveUrl("~/Actions.ashx") %>?do=logout">Logout</a>
+                        </div>
+                        <% } %>
+                    </div>
+
+                    <a class="ic" href="<%= ResolveUrl("~/Wishlist.aspx") %>" aria-label="Wishlist">
+                        <%= Ui.HeartSvg %><b class="count"><%= Ui.WishCount %></b></a>
+                    <a class="ic" href="<%= ResolveUrl("~/Cart.aspx") %>" aria-label="Cart">
+                        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M17.210 9l-4.380-6.560a1 1 0 0 0-1.660 0L6.790 9H2a1 1 0 0 0-1 1l.040.270 2.540 9.270c.230.840 1 1.460 1.920 1.460h13c.920 0 1.690-.620 1.930-1.460l2.540-9.270L23 10a1 1 0 0 0-1-1h-4.790zM9 9l3-4.400L15 9H9zm3 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg><b class="count"><%= CartCount %></b></a>
+                </div>
+            </div>
+        </div>
+
+        <asp:Panel ID="pnlSearch" runat="server" CssClass="search-pop" DefaultButton="btnSearch">
+            <div class="container">
+                <asp:TextBox ID="txtSearch" runat="server" MaxLength="80" placeholder="Search products..." />
+                <asp:Button ID="btnSearch" runat="server" Text="Search" CausesValidation="false" OnClick="btnSearch_Click" CssClass="btn" />
+            </div>
+        </asp:Panel>
+    </header>
+
+    <main>
+        <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+    </main>
+
+    <section class="join">
+        <img class="doodle l" src="<%= ResolveUrl("~/Images/doodle-left.jpg") %>" alt="" />
+        <img class="doodle r" src="<%= ResolveUrl("~/Images/doodle-right.jpg") %>" alt="" />
+        <div class="join-in">
+            <h2>Join For Hot Offers</h2>
+            <asp:Panel ID="pnlJoin" runat="server" DefaultButton="btnJoin" CssClass="join-form">
+                <asp:TextBox ID="txtJoin" runat="server" MaxLength="150" TextMode="Email" placeholder="Enter email" />
+                <asp:Button ID="btnJoin" runat="server" Text="SUBSCRIBE" ValidationGroup="join" OnClick="btnJoin_Click" CssClass="btn" />
+            </asp:Panel>
+            <asp:RequiredFieldValidator runat="server" ControlToValidate="txtJoin" ValidationGroup="join" Display="Dynamic" CssClass="err" ErrorMessage="Please enter your email." />
+            <asp:RegularExpressionValidator runat="server" ControlToValidate="txtJoin" ValidationGroup="join" Display="Dynamic" CssClass="err"
+                ValidationExpression="^[^@\s]+@[^@\s]+\.[^@\s]+$" ErrorMessage="Please enter a valid email address." />
+            <p>I have read and agree to the <a href="<%= ResolveUrl("~/Contact.aspx") %>">Privacy Policy</a>.</p>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="f-logo"><img src="<%= ResolveUrl("~/Images/logo-footer.png") %>" alt="Poco!" /></div>
+            <div class="f-cols">
+                <div><h4>ADDRESS</h4><p>570 8th Ave,</p><p>New York, NY 10018<br />United States</p></div>
+                <div><h4>BOOK A TABLE</h4><p>Dogfood och Sliders foodtruck.<br />Under Om oss kan ni l&auml;sa</p><a class="f-phone" href="tel:+18504354155">(850) 435-4155</a></div>
+                <div><h4>OPENING HOURS</h4><p>Monday &ndash; Friday: <b>8am</b> &ndash; <b>4pm</b><br />Saturday: <b>9am</b> &ndash; <b>5pm</b></p>
+                    <div class="social">
+                        <a href="https://www.facebook.com" target="_blank" rel="noopener"><img src="<%= ResolveUrl("~/Images/social-fb.png") %>" alt="Facebook" /></a>
+                        <a href="https://twitter.com" target="_blank" rel="noopener"><img src="<%= ResolveUrl("~/Images/social-tw.png") %>" alt="Twitter" /></a>
+                        <a href="https://www.youtube.com" target="_blank" rel="noopener"><img src="<%= ResolveUrl("~/Images/social-yt.png") %>" alt="YouTube" /></a>
+                        <a href="https://wordpress.org" target="_blank" rel="noopener"><img src="<%= ResolveUrl("~/Images/social-wp.png") %>" alt="WordPress" /></a>
+                    </div></div>
+                <div><h4>NEWSLETTER</h4><p>Subscribe to the weekly newsletter for all<br />the latest updates</p>
+                    <asp:Panel ID="pnlFoot" runat="server" DefaultButton="btnFoot" CssClass="foot-form">
+                        <asp:TextBox ID="txtFoot" runat="server" MaxLength="150" TextMode="Email" placeholder="Your Email ..." />
+                        <asp:Button ID="btnFoot" runat="server" Text="Subscribe" ValidationGroup="foot" OnClick="btnFoot_Click" CssClass="btn" />
+                    </asp:Panel>
+                    <asp:RequiredFieldValidator runat="server" ControlToValidate="txtFoot" ValidationGroup="foot" Display="Dynamic" CssClass="err" ErrorMessage="Please enter your email." />
+                    <asp:RegularExpressionValidator runat="server" ControlToValidate="txtFoot" ValidationGroup="foot" Display="Dynamic" CssClass="err"
+                        ValidationExpression="^[^@\s]+@[^@\s]+\.[^@\s]+$" ErrorMessage="Please enter a valid email address." />
+                </div>
+            </div>
+        </div>
+        <div class="f-bottom">
+            <div class="container">
+                <span>&copy; <%= DateTime.Now.Year %> <a href="<%= ResolveUrl("~/Default.aspx") %>">Poco</a>. All rights reserved.</span>
+                <img src="<%= ResolveUrl("~/Images/payments.jpg") %>" alt="Visa, Mastercard, American Express, PayPal, Discover, COD" />
+            </div>
+        </div>
+    </footer>
+</form>
+<script src="<%= ResolveUrl("~/Scripts/site.js") %>"></script>
+</body>
+</html>
