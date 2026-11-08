@@ -1,0 +1,43 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "PocoWeb", "PocoWeb\", "{6B1F0C52-3A4D-4E7B-9C21-5D8A7F3E1A90}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.8"
+		Debug.AspNetCompiler.VirtualPath = "/PocoWeb"
+		Debug.AspNetCompiler.PhysicalPath = "PocoWeb\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\PocoWeb\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/PocoWeb"
+		Release.AspNetCompiler.PhysicalPath = "PocoWeb\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\PocoWeb\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "44300"
+		SlnRelativePath = "PocoWeb\"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6B1F0C52-3A4D-4E7B-9C21-5D8A7F3E1A90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B1F0C52-3A4D-4E7B-9C21-5D8A7F3E1A90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B1F0C52-3A4D-4E7B-9C21-5D8A7F3E1A90}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B1F0C52-3A4D-4E7B-9C21-5D8A7F3E1A90}.Release|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AC0F8CF8-FB26-4065-A247-311C241A4E5A}
+	EndGlobalSection
+EndGlobal
